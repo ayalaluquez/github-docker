@@ -15,7 +15,7 @@ jobs:
           tags: latest
           access_token: ${{ secrets.GITHUB_TOKEN }}
           image_name: CI
-          build_arg: |
+          build_args: |
             THISISARG1=test
             THISISARG2=test
         if: always()  
@@ -27,7 +27,7 @@ jobs:
           access_token: ${{ secrets.GITHUB_TOKEN }}
           dockerfile: Dockerfile.test
           image_name: CI
-          build_arg: |
+          build_args: |
             THISISARG1=test
             THISISARG2=test
         if: always() 
@@ -38,7 +38,7 @@ jobs:
         with:
           repository: ayalaluquez/github-action-example
           access_token: ${{ secrets.TOKEN_PAT }}
-          build_arg: |
+          build_args: |
             THISISARG1=test
             THISISARG2=test
         if: always()
