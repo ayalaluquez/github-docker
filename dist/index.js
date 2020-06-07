@@ -1021,7 +1021,7 @@ async function run() {
     
     await exec.exec(
         `docker`,
-        ['build', ...buildtags, -f, dockerfile, workdir, ...buildArg]);
+        ['build', ...buildtags, "--file", dockerfile, workdir, ...buildArg]);
         
     // Push the Docker image.
     let pushtags = [];
