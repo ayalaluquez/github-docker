@@ -28,7 +28,7 @@ Build and publish your repository as a Docker image and push it to GitHub Packag
 
 ```yaml
 - name: Publish Image
-  uses: craftech-io/package-action@v3.0.0
+  uses: craftech-io/package-action@v3.1.0
   with:
     tags: latest
     access_token: ${{ secrets.GITHUB_TOKEN }}
@@ -52,7 +52,7 @@ with:
 
 ```yaml
 - name: Publish Image
-  uses: craftech-io/package-action@v3.0.0
+  uses: craftech-io/package-action@v3.1.0
   id: url-GPR 
   with:
     tags: latest
@@ -65,7 +65,7 @@ with:
 ### Use with Dockerfile name
 ```yaml
 - name: Publish Image
-  uses: craftech-io/package-action@v3.0.0
+  uses: craftech-io/package-action@v3.1.0
   id: url-GPR 
   with:
     tags: latest
@@ -76,7 +76,7 @@ with:
 ### Push a different repository
 ```yaml
 - name: Publish Image
-  uses: craftech-io/package-action@v3.0.0
+  uses: craftech-io/package-action@v3.1.0
   id: url-GPR 
   with:
     tags: latest
