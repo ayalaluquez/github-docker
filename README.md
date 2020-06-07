@@ -1,3 +1,4 @@
+[![Maintained by Craftech.io](https://img.shields.io/badge/maintained%20by-craftech.io-%2254BEC5.svg?color=54BEC5)](https://craftech.io/?ref=terraform-aws-route53)
 ![Github Package Registry](https://github.com/craftech-io/package-action/workflows/Github%20Package%20Registry/badge.svg)
 
 # GitHub Docker Action
@@ -59,6 +60,17 @@ with:
 
 - name: output
   run: echo ${{ steps.url-GPR.outputs.imageURL }}    
+```
+
+### Use with Dockerfile name
+```yaml
+- name: Publish Image
+  uses: craftech-io/package-action@v3.0.0
+  id: url-GPR 
+  with:
+    tags: latest
+    dockerfile: Dockerfile.base
+    access_token: ${{ secrets.GITHUB_TOKEN }}  
 ```
 
 ### Push a different repository
