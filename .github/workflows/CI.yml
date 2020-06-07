@@ -14,6 +14,7 @@ jobs:
         with:
           tags: latest
           access_token: ${{ secrets.GITHUB_TOKEN }}
+          dockerfile: test/Dockerfile
           image_name: CI
           build_args: |
             THISISARG1=test
@@ -38,6 +39,7 @@ jobs:
         with:
           repository: ayalaluquez/github-action-example
           access_token: ${{ secrets.TOKEN_PAT }}
+          dockerfile: test/Dockerfile
           build_args: |
             THISISARG1=test
             THISISARG2=test
