@@ -27,10 +27,14 @@ async function run() {
     Step 3. Push the Docker image.
 
     */
+    let dockerfile = core.getInput('dockerfile', { required: false });
+    if (!dockerfile) dockerfile = "Dockerfile"
+    
     // Set the workspace directory and context.
     const workspace = process.env['GITHUB_WORKSPACE'];
     const context = core.getInput('context', { required: true });
     const workdir = path.join(workspace, context);
+    const dockerfile_path = path.join(workdir, dockerfile);
 
     // Log in to Docker.
     let username = core.getInput('username', { required: false });
@@ -70,12 +74,10 @@ async function run() {
  
 
     // Build the Docker image.
-    let dockerfile = core.getInput('dockerfile', { required: false });
-    if (!dockerfile) dockerfile = "Dockerfile"
     
     await exec.exec(
         `docker`,
-        ['build', ...buildtags, "--file", dockerfile, workdir, ...buildArg]);
+        ['build', ...buildtags, "--file", dockerfile_path, workdir, ...buildArg]);
         
     // Push the Docker image.
     let pushtags = [];
