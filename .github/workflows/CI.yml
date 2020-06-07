@@ -14,12 +14,24 @@ jobs:
         with:
           tags: latest
           access_token: ${{ secrets.GITHUB_TOKEN }}
-          username: arielvinas       
           image_name: CI
           build_arg: |
             THISISARG1=test
             THISISARG2=test
-        if: always()            
+        if: always()  
+
+      - name: Run the Action
+        uses: ./
+        with:
+          tags: latest
+          access_token: ${{ secrets.GITHUB_TOKEN }}
+          dockerfile: Dockerfile.test
+          image_name: CI
+          build_arg: |
+            THISISARG1=test
+            THISISARG2=test
+        if: always() 
+
 
       - name: Run the Action
         uses: ./
