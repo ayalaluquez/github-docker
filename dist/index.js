@@ -946,7 +946,6 @@ module.exports = require("os");
 
 const process = __webpack_require__(765);
 const path = __webpack_require__(622);
-const url = __webpack_require__(835);
 const core = __webpack_require__(470);
 const exec = __webpack_require__(986);
 
@@ -973,6 +972,11 @@ async function run() {
     Step 3. Push the Docker image.
 
     */
+
+    let registry="ghcr.io"
+    const oldRegistry="docker.pkg.github.com"
+    let useOldRegistry=false;
+
     let dockerfile = core.getInput('dockerfile', { required: false });
     if (!dockerfile) dockerfile = "Dockerfile"
 
@@ -985,14 +989,26 @@ async function run() {
     let username = core.getInput('username', { required: false });
     if (!username) username = process.env['GITHUB_ACTOR'];
     const password = core.getInput('access_token', { required: true });
+
+    let arg_use_oldregistry=core.getInput('use_old_registry',{required:false})
+    if(!arg_use_oldregistry){
+      useOldRegistry=arg_use_oldregistry;
+    }
+
+    if(useOldRegistry){
+      registry=oldRegistry;
+    }
+
     await exec.exec(
       `docker`,
-      ['login', 'docker.pkg.github.com', '--username', username, '--password', password]);
+      ['login', registry, '--username', username, '--password', password]);
 
     // Process the repository name.
     let repository = core.getInput('repository', { required: false });
     if (!repository) repository = process.env['GITHUB_REPOSITORY'];
     repository = repository.toLowerCase();
+
+
 
     // Process the image name.
     let imageName = core.getInput('image_name', { required: false });
@@ -1000,7 +1016,13 @@ async function run() {
     if (!imageName) imageName = repoArray[repoArray.length - 1];
     imageName = imageName.toLowerCase();
     
-    const imageURL = `docker.pkg.github.com/${repository}/${imageName}`
+    if(!useOldRegistry){
+      //on ghcr.io we need only account name
+      repository=repoArray[0];
+    }
+
+
+    const imageURL = `${registry}/${repository}/${imageName}`
     
     
     // Process the build args
@@ -1577,13 +1599,6 @@ module.exports = require("fs");
 /***/ (function(module) {
 
 module.exports = require("process");
-
-/***/ }),
-
-/***/ 835:
-/***/ (function(module) {
-
-module.exports = require("url");
 
 /***/ }),
 

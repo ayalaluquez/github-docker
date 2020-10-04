@@ -27,6 +27,10 @@ inputs:
   dockerfile:
     description: "The build arguments for image."
     required: false    
+  use_old_registry:
+    description: "Use old docker.pkg.github.com instead newer ghcr.io for image push. Default is false"
+    required: false
+    default: false
 outputs:
   imageURL:
     description: "The URL of the image."
